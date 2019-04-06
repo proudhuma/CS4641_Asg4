@@ -152,7 +152,117 @@ When we look at the results of value iteration and policy iteration, we can figu
 As for the convergence time, for the large maze, it is clear that when PJOG is a small value, value iteration is faster than policy iteration while policy iteration takes less time when PJOG is large. For the small maze, value iteration is smaller than policy iteration when PJOG is small and the convergence time become closer when PJOG increases. The observation indicates that policy iteration is a better choice when the problem is more complex and the agent cannot guarantee effect action. If the problem is simple or the action has a higher probability to be effective, value iteration may be quicker to converge.
 
 \section{Q Learning}
-Value iteration and policy iteration are both dynamic programming strategies, they can be used for offline planning where we make the assumption that the agent has prior knowledge about the effects of its actions on the environment. Now, assume the agent does not have prior knowledge of the system. i.e. the state transition and reward models are not known and the agent only know the possible states as well as actions.  Q learning is an example of model-free learning algorithm, the agent will discover the environment and learn the transition and reward model. It works by estimating the vale of state-action pairs. The agent initialize the pairs using arbitrary values and by observing the reward and state transition of its action, it can update the estimation of state-action pairs. A problem here is how the agent select actions during learning. The approach used is $\epsilon$-greedy approach where the agent will explore by picking random actions with probability $\epsilon$ or select an action based on the current estimate of Q values with probability $1-\epsilon$.
+Value iteration and policy iteration are both dynamic programming strategies, they can be used for offline planning where we make the assumption that the agent has prior knowledge about the effects of its actions on the environment. Now, assume the agent does not have prior knowledge of the system. i.e. the state transition and reward models are not known and the agent only know the possible states as well as actions.  Q learning is an example of model-free learning algorithm, the agent will discover the environment and learn the transition and reward model. It works by estimating the vale of state-action pairs. The agent initialize the pairs using arbitrary values and by observing the reward and state transition of its action, it can update the estimation of state-action pairs. A problem here is how the agent select actions during learning. The approach used is $\epsilon$-greedy approach where the agent will explore by picking random actions with probability $\epsilon$ or select an action based on the current estimate of Q values with probability $1-\epsilon$.\\
+\\
+Fig.\ref{Fig:q1_1_10} to Fig.\ref{Fig:q1_1_100} are the results of running Q learning algorithm on small maze with PJOG=0.1, $\epsilon$=0.1 after 10, 25, 50, 100 episodes correspondingly. Fig.\ref{Fig:q1_3_10} to Fig.\ref{Fig:q1_3_100} are the results of running Q learning algorithm on small maze with PJOG=0.1, $\epsilon$=0.3 after 10, 25, 50, 100 episodes correspondingly. 
 
+\begin{figure}[!htb]
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q1_1_10.png}
+     \caption{PJOG=0.1, $\epsilon$=0.1, episode=10}\label{Fig:q1_1_10}
+   \end{minipage}\hfill
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q1_1_25.png}
+     \caption{PJOG=0.1, $\epsilon$=0.1, episode=25}\label{Fig:q1_1_25}
+   \end{minipage}
+\end{figure}
+
+\begin{figure}[!htb]
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q1_1_50.png}
+     \caption{PJOG=0.1, $\epsilon$=0.1, episode=50}\label{Fig:q1_1_50}
+   \end{minipage}\hfill
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q1_1_100.png}
+     \caption{PJOG=0.1, $\epsilon$=0.1, episode=100}\label{Fig:q1_1_100}
+   \end{minipage}
+\end{figure}
+
+\begin{figure}[!htb]
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q1_3_10.png}
+     \caption{PJOG=0.1, $\epsilon$=0.3, episode=10}\label{Fig:q1_3_10}
+   \end{minipage}\hfill
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q1_3_25.png}
+     \caption{PJOG=0.1, $\epsilon$=0.3, episode=25}\label{Fig:q1_3_25}
+   \end{minipage}
+\end{figure}
+
+\begin{figure}[!htb]
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q1_3_50.png}
+     \caption{PJOG=0.1, $\epsilon$=0.3, episode=50}\label{Fig:q1_3_50}
+   \end{minipage}\hfill
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q1_3_100.png}
+     \caption{PJOG=0.1, $\epsilon$=0.3, episode=100}\label{Fig:q1_3_100}
+   \end{minipage}
+\end{figure}
+
+Fig.\ref{Fig:q2_1_10} to Fig.\ref{Fig:q2_1_100} are the results of running Q learning algorithm on large maze with PJOG=0.1, $\epsilon$=0.1 after 10, 25, 50, 100 episodes correspondingly. Fig.\ref{Fig:q2_3_10} to Fig.\ref{Fig:q2_3_100} are the results of running Q learning algorithm on large maze with PJOG=0.1, $\epsilon$=0.3 after 10, 25, 50, 100 episodes correspondingly. \\
+
+\begin{figure}[!htb]
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q2_1_10.png}
+     \caption{PJOG=0.1, $\epsilon$=0.1, episode=10}\label{Fig:q2_1_10}
+   \end{minipage}\hfill
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q2_1_25.png}
+     \caption{PJOG=0.1, $\epsilon$=0.1, episode=25}\label{Fig:q2_1_25}
+   \end{minipage}
+\end{figure}
+
+\begin{figure}[!htb]
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q2_1_50.png}
+     \caption{PJOG=0.1, $\epsilon$=0.1, episode=50}\label{Fig:q2_1_50}
+   \end{minipage}\hfill
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q2_1_100.png}
+     \caption{PJOG=0.1, $\epsilon$=0.1, episode=100}\label{Fig:q2_1_100}
+   \end{minipage}
+\end{figure}
+
+
+\begin{figure}[!htb]
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q2_3_10.png}
+     \caption{PJOG=0.1, $\epsilon$=0.3, episode=10}\label{Fig:q2_3_10}
+   \end{minipage}\hfill
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q2_3_25.png}
+     \caption{PJOG=0.1, $\epsilon$=0.3, episode=25}\label{Fig:q2_3_25}
+   \end{minipage}
+\end{figure}
+
+\begin{figure}[!htb]
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q2_3_50.png}
+     \caption{PJOG=0.1, $\epsilon$=0.3, episode=50}\label{Fig:q2_3_50}
+   \end{minipage}\hfill
+   \begin{minipage}{0.4\textwidth}
+     \centering
+     \includegraphics[width=1.2\linewidth]{../figures/q2_3_100.png}
+     \caption{PJOG=0.1, $\epsilon$=0.3, episode=100}\label{Fig:q2_3_100}
+   \end{minipage}
+\end{figure}
+
+We can see that Q learning algorithm can produce some useful information quickly even when episode is small. When episode=10, all agents in four experiments have learned some effective actions. As mentioned above, Q learning assume that the agent knows nothing about the environment and will explore the world by itself, there are some non-optimal actions and the agent may even get stuck at a corner at first. But as episode increase, the actions are more close to the optimal solution, which indicates that the agent is learning more about actions and policies. In my experiment of using different $\epsilon$ value, I will pause every ten episode and see what happens for the agent. I find out that small $\epsilon$(=0.1) leads to slow learning at very beginning but the speed increases as the environment is better explored. On the contrary, the exploring process of large $\epsilon$(=0.3) at beginning is faster than small $\epsilon$ while it becomes slower later. This is because $\epsilon$ measures the ``random walk'' probability, when the agent does not know the world very much, it will fasten the exploration. But when the agent has enough information about the environment, it is regarded as  negative influence.
 
 \end{document}
