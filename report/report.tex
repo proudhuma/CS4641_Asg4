@@ -29,11 +29,11 @@ In this project, I use the RL\_sim which is the java executable created by Carne
    \end{minipage}
 \end{figure}\\
 \\
-In the figures, the highlighted grids are the destinations and the bold lines are walls and the agent cannot pass the wall. The possible actions for the agent are moving up, down, right or left and each action will have some constant cost. The parameter PJOG is the probability that the agent will act ineffectively. i.e. the agent will have 1-PJOG probability that its action will lead to the destination and PJOG/3 probability to choose other directions. Also, there would be some penalty if the agent tries to go into a wall.\\
+In the figures, the highlighted grids are the destinations and the bold lines are walls and the agent cannot pass the wall. The possible actions for the agent are moving up, down, right or left and each action will have some constant cost. The parameter PJOG is the probability that the agent will act ineffectively. i.e. the agent will have 1-PJOG probability that its action will lead to the destination and PJOG/3 probability to choose other directions. Also, there would be some penalty if the agent tries to go into a wall. In my experiments, penalty is set to 50.\\
 \\
-I believe these two problems are interesting. The first reason is that they can be mapped to some real life problems. For example, a robot has to go back to its charging position when its battery is low. Another reason is that I believe the problems can show the performance of different algorithms as well as help the selection of algorithms in different situations.
+I believe these two problems are interesting. The first reason is that they can be mapped to some real life problems. For example, a robot want to go to its charging position when its battery is low, or a robot want to carry some goods to a place. Another reason is that I believe the problems can show the performance of different algorithms as well as help the selection of algorithms in different situations.
 \section{Value Iteration}
-For value iteration, it works by finding the optimal value function which can represent how good is a state for the agent. It will apply the optimal Bellman operator to the value function in a recursive manner and converge to the optimal value. Then, we can get the corresponding optimal policy for every state. \ref{Tab:value} shows the time and steps for value iteration to converge for different selection of PJOG value. Fig.\ref{Fig:value1_1} to Fig.\ref{Fig:value1_5} shows the result of small maze and Fig.\ref{Fig:value2_1} to Fig.\ref{Fig:value2_5} shows the result of large maze.
+For value iteration, it works by finding the optimal value function which can represent how good is a state for the agent. It will apply the optimal Bellman operator to the value function in a recursive manner and converge to the optimal value. Then, we can get the corresponding optimal policy for every state.[1][2] Table.\ref{Tab:value} shows the time and steps for value iteration to converge for different selection of PJOG value. Fig.\ref{Fig:value1_1} to Fig.\ref{Fig:value1_5} shows the result of small maze and Fig.\ref{Fig:value2_1} to Fig.\ref{Fig:value2_5} shows the result of large maze.
 \begin{table}[h!]
   \begin{center}
     \caption{Performance of Value Iteration}
@@ -90,7 +90,7 @@ From the experiments, we can see that the increase of PJOG will lead to longer r
 \end{figure}
 
 \section{Policy Iteration}
-For policy iteration,  it performs two steps in each iteration. First is policy evaluation, it is going to apply the Bellman operator for the current best policy in a recursive manner until convergence to the value function for the policy. Then, it will do policy improvement by taking the action that maximizes the value function for every state. \ref{Tab:policy} shows the time and steps for value iteration to converge for different selection of PJOG value. Fig.\ref{Fig:policy1_1} to Fig.\ref{Fig:policy1_5} shows the result of small maze and Fig.\ref{Fig:policy2_1} to Fig.\ref{Fig:policy2_5} shows the result of large maze.
+For policy iteration,  it performs two steps in each iteration. First is policy evaluation, it is going to apply the Bellman operator for the current best policy in a recursive manner until convergence to the value function for the policy. Then, it will do policy improvement by taking the action that maximizes the value function for every state.[1][2] Table.\ref{Tab:policy} shows the time and steps for value iteration to converge for different selection of PJOG value. Fig.\ref{Fig:policy1_1} to Fig.\ref{Fig:policy1_5} shows the result of small maze and Fig.\ref{Fig:policy2_1} to Fig.\ref{Fig:policy2_5} shows the result of large maze.
 
 \begin{table}[h!]
   \begin{center}
@@ -105,7 +105,7 @@ For policy iteration,  it performs two steps in each iteration. First is policy 
     \end{tabular}
   \end{center}
 \end{table}
-From the experiments, we can see that it always takes small iterations for policy iteration to converge. An interesting observation is that when PJOG is equal to 0.1, it will take much time to converge, compared with the case when PJOG is 0.3. For small maze, it even takes more time when PJOG is 0.5. 
+From the experiments, we can see that it always takes small iterations for policy iteration to converge. An interesting observation is that when PJOG is equal to 0.1, it will take much time to converge, compared with the case when PJOG is 0.3. For small maze, it even takes more time then PJOG is 0.5. 
 
 \begin{figure}[!htb]
    \begin{minipage}{0.4\textwidth}
@@ -147,22 +147,30 @@ From the experiments, we can see that it always takes small iterations for polic
 \end{figure}
 
 \section{Comparison between Value Iteration and Policy Iteration}
-When we look at the results of value iteration and policy iteration, we can figure out that the results are the same. It means that both the two methods will converge to the same optimal value. Iteration steps vary a lot between value iteration and policy iteration. Policy iteration will take much smaller iterations steps to converge. This is because policy iteration is actually a kind of improvement of value iteration. Instead of waiting for convergence, we could now tolerate some error, evaluate the policy at some point and perform policy improvement over the not perfect value function. So one iteration in policy iteration is as powerful as multiple iterations in value iteration and the total iteration steps of policy iteration are consequently much smaller than that of value iteration.\\
+When we look at the results of value iteration and policy iteration, we can figure out that the results are the same. It means that both the two methods will converge to the same optimal value. Iteration steps vary a lot between value iteration and policy iteration. Policy iteration will take much smaller iteration steps to converge. This is because policy iteration is actually a kind of improvement of value iteration. Instead of waiting for convergence, we could now tolerate some error, evaluate the policy at some point and perform policy improvement over the not perfect value function.[2][4] So one iteration in policy iteration is as powerful as multiple iterations in value iteration and the total iteration steps of policy iteration are consequently much smaller than that of value iteration.\\
 \\
-As for the convergence time, for the large maze, it is clear that when PJOG is a small value, value iteration is faster than policy iteration while policy iteration takes less time when PJOG is large. For the small maze, value iteration is smaller than policy iteration when PJOG is small and the convergence time become closer when PJOG increases. The observation indicates that policy iteration is a better choice when the problem is more complex and the agent cannot guarantee effect action. If the problem is simple or the action has a higher probability to be effective, value iteration may be quicker to converge.
+As for the convergence time, for the large maze, it is clear that when PJOG is a small value, value iteration is faster than policy iteration while policy iteration takes less time when PJOG is large. For the small maze, value iteration is smaller than policy iteration when PJOG is small and the convergence time become closer when PJOG increases. The observation indicates that policy iteration is a better choice when the problem is more complex and the agent cannot guarantee effect action. If the problem is simple or the action has a higher probability to be effective, value iteration may take less time to converge.
 
 \section{Q Learning}
-Value iteration and policy iteration are both dynamic programming strategies, they can be used for offline planning where we make the assumption that the agent has prior knowledge about the effects of its actions on the environment. Now, assume the agent does not have prior knowledge of the system. i.e. the state transition and reward models are not known and the agent only know the possible states as well as actions.  Q learning is an example of model-free learning algorithm, the agent will discover the environment and learn the transition and reward model. It works by estimating the vale of state-action pairs. The agent initialize the pairs using arbitrary values and by observing the reward and state transition of its action, it can update the estimation of state-action pairs. A problem here is how the agent select actions during learning. The approach used is $\epsilon$-greedy approach where the agent will explore by picking random actions with probability $\epsilon$ or select an action based on the current estimate of Q values with probability $1-\epsilon$.\\
-\\
-Fig.\ref{Fig:q1_1_10} to Fig.\ref{Fig:q1_1_100} are the results of running Q learning algorithm on small maze with PJOG=0.1, $\epsilon$=0.1 after 10, 25, 50, 100 episodes correspondingly. Fig.\ref{Fig:q1_3_10} to Fig.\ref{Fig:q1_3_100} are the results of running Q learning algorithm on small maze with PJOG=0.1, $\epsilon$=0.3 after 10, 25, 50, 100 episodes correspondingly. 
+Value iteration and policy iteration are both dynamic programming strategies, they can be used for offline planning where we make the assumption that the agent has prior knowledge about the effects of its actions on the environment. Now, assume the agent does not have prior knowledge of the system. i.e. the state transition and reward models are not known and the agent only know the possible states as well as actions. Q learning is an example of model-free learning algorithm, the agent will discover the environment and learn the transition and reward model. It works by estimating the value of state-action pairs. The agent initialize the pairs using arbitrary values and by observing the reward and state transition of its action, it can update the estimation of state-action pairs.[3][4][5] A problem here is how the agent select actions during learning. The approach used is $\epsilon$-greedy approach where the agent will explore by picking random actions with probability $\epsilon$ or select an action based on the current estimate of Q values with probability $1-\epsilon$.\\
+\\Fig.\ref{Fig:q1_1_10} to Fig.\ref{Fig:q2_3_100} shows the results of running Q learning algorithm on different mazes with different parameters. We can see that Q learning algorithm can produce some useful information quickly even when episode is small. When episode=10, all agents in four experiments have learned some effective actions. As mentioned above, Q learning assume that the agent knows nothing about the environment and will explore the world by itself, there are some non-optimal actions and the agent may even get stuck at a corner at first. But as episode increase, the actions are more close to the optimal solution, which indicates that the agent is learning more about actions and policies. In my experiment of using different $\epsilon$ value, I will pause every ten episode and see what happens for the agent. I find out that small $\epsilon$(=0.1) leads to slow learning at very beginning but the speed increases as the environment is better explored. On the contrary, the exploring process of large $\epsilon$(=0.3) at beginning is faster than small $\epsilon$ while it becomes slower later. This is because $\epsilon$ measures the ``random walk'' probability, when the agent does not know the world very much, it will fasten the exploration. But when the agent has enough information about the environment, it is regarded as  negative influence.
+
+\section{Reference}
+\begin{enumerate}
+\item https://stackoverflow.com/questions/37370015/what-is-the-difference-between-value-iteration-and-policy-iteration
+\item https://www.quora.com/How-is-policy-iteration-different-from-value-iteration
+\item https://medium.freecodecamp.org/an-introduction-to-q-learning-reinforcement-learning-14ac0b4493cc
+\item https://medium.com/@m.alzantot/deep-reinforcement-learning-demysitifed-episode-2-policy-iteration-value-iteration-and-q-978f9e89ddaa
+\item https://frnsys.com/ai\_notes/artificial\_intelligence/reinforcement\_learning.html
+\end{enumerate}
 
 \begin{figure}[!htb]
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q1_1_10.png}
      \caption{PJOG=0.1, $\epsilon$=0.1, episode=10}\label{Fig:q1_1_10}
    \end{minipage}\hfill
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q1_1_25.png}
      \caption{PJOG=0.1, $\epsilon$=0.1, episode=25}\label{Fig:q1_1_25}
@@ -170,12 +178,12 @@ Fig.\ref{Fig:q1_1_10} to Fig.\ref{Fig:q1_1_100} are the results of running Q lea
 \end{figure}
 
 \begin{figure}[!htb]
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q1_1_50.png}
      \caption{PJOG=0.1, $\epsilon$=0.1, episode=50}\label{Fig:q1_1_50}
    \end{minipage}\hfill
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q1_1_100.png}
      \caption{PJOG=0.1, $\epsilon$=0.1, episode=100}\label{Fig:q1_1_100}
@@ -183,12 +191,12 @@ Fig.\ref{Fig:q1_1_10} to Fig.\ref{Fig:q1_1_100} are the results of running Q lea
 \end{figure}
 
 \begin{figure}[!htb]
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q1_3_10.png}
      \caption{PJOG=0.1, $\epsilon$=0.3, episode=10}\label{Fig:q1_3_10}
    \end{minipage}\hfill
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q1_3_25.png}
      \caption{PJOG=0.1, $\epsilon$=0.3, episode=25}\label{Fig:q1_3_25}
@@ -196,27 +204,24 @@ Fig.\ref{Fig:q1_1_10} to Fig.\ref{Fig:q1_1_100} are the results of running Q lea
 \end{figure}
 
 \begin{figure}[!htb]
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q1_3_50.png}
      \caption{PJOG=0.1, $\epsilon$=0.3, episode=50}\label{Fig:q1_3_50}
    \end{minipage}\hfill
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q1_3_100.png}
      \caption{PJOG=0.1, $\epsilon$=0.3, episode=100}\label{Fig:q1_3_100}
    \end{minipage}
 \end{figure}
-
-Fig.\ref{Fig:q2_1_10} to Fig.\ref{Fig:q2_1_100} are the results of running Q learning algorithm on large maze with PJOG=0.1, $\epsilon$=0.1 after 10, 25, 50, 100 episodes correspondingly. Fig.\ref{Fig:q2_3_10} to Fig.\ref{Fig:q2_3_100} are the results of running Q learning algorithm on large maze with PJOG=0.1, $\epsilon$=0.3 after 10, 25, 50, 100 episodes correspondingly. \\
-
 \begin{figure}[!htb]
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q2_1_10.png}
      \caption{PJOG=0.1, $\epsilon$=0.1, episode=10}\label{Fig:q2_1_10}
    \end{minipage}\hfill
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q2_1_25.png}
      \caption{PJOG=0.1, $\epsilon$=0.1, episode=25}\label{Fig:q2_1_25}
@@ -224,12 +229,12 @@ Fig.\ref{Fig:q2_1_10} to Fig.\ref{Fig:q2_1_100} are the results of running Q lea
 \end{figure}
 
 \begin{figure}[!htb]
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q2_1_50.png}
      \caption{PJOG=0.1, $\epsilon$=0.1, episode=50}\label{Fig:q2_1_50}
    \end{minipage}\hfill
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q2_1_100.png}
      \caption{PJOG=0.1, $\epsilon$=0.1, episode=100}\label{Fig:q2_1_100}
@@ -238,12 +243,12 @@ Fig.\ref{Fig:q2_1_10} to Fig.\ref{Fig:q2_1_100} are the results of running Q lea
 
 
 \begin{figure}[!htb]
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q2_3_10.png}
      \caption{PJOG=0.1, $\epsilon$=0.3, episode=10}\label{Fig:q2_3_10}
    \end{minipage}\hfill
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q2_3_25.png}
      \caption{PJOG=0.1, $\epsilon$=0.3, episode=25}\label{Fig:q2_3_25}
@@ -251,18 +256,16 @@ Fig.\ref{Fig:q2_1_10} to Fig.\ref{Fig:q2_1_100} are the results of running Q lea
 \end{figure}
 
 \begin{figure}[!htb]
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q2_3_50.png}
      \caption{PJOG=0.1, $\epsilon$=0.3, episode=50}\label{Fig:q2_3_50}
    \end{minipage}\hfill
-   \begin{minipage}{0.4\textwidth}
+   \begin{minipage}{0.34\textwidth}
      \centering
      \includegraphics[width=1.2\linewidth]{../figures/q2_3_100.png}
      \caption{PJOG=0.1, $\epsilon$=0.3, episode=100}\label{Fig:q2_3_100}
    \end{minipage}
 \end{figure}
-
-We can see that Q learning algorithm can produce some useful information quickly even when episode is small. When episode=10, all agents in four experiments have learned some effective actions. As mentioned above, Q learning assume that the agent knows nothing about the environment and will explore the world by itself, there are some non-optimal actions and the agent may even get stuck at a corner at first. But as episode increase, the actions are more close to the optimal solution, which indicates that the agent is learning more about actions and policies. In my experiment of using different $\epsilon$ value, I will pause every ten episode and see what happens for the agent. I find out that small $\epsilon$(=0.1) leads to slow learning at very beginning but the speed increases as the environment is better explored. On the contrary, the exploring process of large $\epsilon$(=0.3) at beginning is faster than small $\epsilon$ while it becomes slower later. This is because $\epsilon$ measures the ``random walk'' probability, when the agent does not know the world very much, it will fasten the exploration. But when the agent has enough information about the environment, it is regarded as  negative influence.
 
 \end{document}
